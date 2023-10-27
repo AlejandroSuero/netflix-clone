@@ -19,7 +19,7 @@ const SignUp = () => {
       link="/auth/signin"
     >
       <Input
-        tabIndex={1}
+        tabIndex={0}
         id="username"
         label="Username"
         onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value) }}
@@ -27,7 +27,6 @@ const SignUp = () => {
         value={username}
       />
       <Input
-        tabIndex={2}
         id="email"
         label="Email"
         onChange={(e: ChangeEvent<HTMLInputElement>) => { setEmail(e.target.value) }}
@@ -35,7 +34,6 @@ const SignUp = () => {
         value={email}
       />
       <Input
-        tabIndex={3}
         id="password"
         label="Password"
         onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
