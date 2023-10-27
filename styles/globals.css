@@ -6,12 +6,13 @@ body {
   @apply bg-zinc-900 h-full overflow-x-hidden;
 }
 
-html, #__next {
+html,
+#__next {
   @apply h-full;
 }
 
 .input {
-  @apply block rounded-md px-6 pt-6 pb-1 w-full text-base text-white bg-neutral-700 appearance-none focus:outline-none focus:ring-0;
+  @apply block rounded-md px-6 pt-6 pb-2 w-full text-base text-white bg-neutral-700 appearance-none focus:outline-none focus:ring-0;
 }
 
 .label {
