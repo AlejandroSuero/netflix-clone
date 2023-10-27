@@ -1,11 +1,9 @@
-import type { ChangeEventHandler, FC, HTMLInputTypeAttribute } from "react"
+import type { ChangeEventHandler, FC, HTMLProps } from "react"
 
-interface InputProps {
-  id: string
+interface InputProps extends HTMLProps<HTMLInputElement> {
   onChange: ChangeEventHandler<HTMLInputElement>
   value: string
   label: string
-  type?: HTMLInputTypeAttribute
 }
 
 const Input: FC<InputProps> = ({
@@ -13,11 +11,13 @@ const Input: FC<InputProps> = ({
   onChange,
   value,
   label,
-  type
+  type,
+  tabIndex
 }) => {
   return (
     <div className="relative">
       <input
+        tabIndex={tabIndex}
         value={value}
         type={type}
         onChange={onChange}
@@ -27,7 +27,7 @@ const Input: FC<InputProps> = ({
       />
       <label
         htmlFor={id}
-        className="label peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3"
+        className="label peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-zinc-400"
       >
         {label}
       </label>
