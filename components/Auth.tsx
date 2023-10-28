@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import Head from "next/head"
 
-import type { FC, ReactNode } from "react"
+import type { FC, MouseEventHandler, ReactNode } from "react"
 
 interface AuthProps {
   title: string
@@ -12,6 +12,7 @@ interface AuthProps {
     link: string
   }
   link: string
+  handleClick: MouseEventHandler<HTMLButtonElement>
   children?: ReactNode
 }
 
@@ -20,6 +21,7 @@ const Auth: FC<AuthProps> = ({
   footer,
   button,
   link,
+  handleClick,
   children
 }) => {
   return (
@@ -45,6 +47,7 @@ const Auth: FC<AuthProps> = ({
                 {children}
               </section>
               <button
+                onClick={handleClick}
                 className="bg-red-700 py-3 text-white font-bold tracking-wide rounded-md w-full mt-10 hover:bg-red-800 transition focus:outline-none focus:bg-red-800"
               >
                 {button}
