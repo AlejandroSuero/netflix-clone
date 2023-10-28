@@ -1,15 +1,34 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
+import axios from "axios"
+import { useRouter } from "next/router"
 
 import type { ChangeEvent } from "react"
 
 import { Auth, Input } from "@/components"
 
 const SignUp = () => {
+  const router = useRouter()
+
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  const signup = useCallback(async () => {
+    try {
+      await axios.post("/api/register", {
+        username,
+        email,
+        password
+      })
+      await router.push("/auth/signin")
+    } catch (error) {
+      if (process.env.NODE_ENV === "development") console.error(error)
+    }
+  }, [username, email, password, router])
+
   return (
     <Auth
+      handleClick={signup}
       title="Sign up"
       button="Sign up"
       footer={{
