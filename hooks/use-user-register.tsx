@@ -1,51 +1,57 @@
 import axios from "axios"
-import { signIn } from "next-auth/react"
+import { signIn, type SignInOptions } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useCallback } from "react"
 
 interface UseUserRegister {
+  credential?: "credentials" | "github"
   username?: string
-  email: string
-  password: string
-  url: string
+  email?: string
+  password?: string
+  callbackUrl: string
 }
 
 const useUserRegister = ({
+  credential,
   username,
   email,
   password,
-  url
+  callbackUrl
 }: UseUserRegister) => {
   const router = useRouter()
+  let options: SignInOptions
+
+  switch (credential) {
+    case "github":
+      options = { callbackUrl }
+      break
+    case "credentials":
+      options = { email, password, redirect: false, callbackUrl }
+      break
+    default:
+      options = { username, email, password }
+      break
+  }
 
   const signin = useCallback(async () => {
     try {
-      await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-        callbackUrl: url
-      })
-      await router.push(url)
+      await signIn(credential, options)
+      if (credential === "credentials") await router.push(callbackUrl)
     } catch (error) {
       if (process.env.NODE_ENV === "development") console.error(error)
     }
-  }, [email, password, router, url])
+  }, [callbackUrl, credential, options, router])
 
   const signup = useCallback(async () => {
     try {
-      await axios.post("/api/register", {
-        username,
-        email,
-        password
-      })
-      await router.push(url)
+      await axios.post("/api/register", options)
+      await router.push(callbackUrl)
     } catch (error) {
       if (process.env.NODE_ENV === "development") console.error(error)
     }
-  }, [username, email, password, router, url])
+  }, [options, router, callbackUrl])
 
-  if (username) return signup
+  if (!credential) return signup
   return signin
 }
 

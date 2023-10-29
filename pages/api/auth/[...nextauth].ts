@@ -1,12 +1,22 @@
 import NextAuth from "next-auth/next"
 import Credentials from "next-auth/providers/credentials"
+import GithubProvider from "next-auth/providers/github"
+import GoogleProvider from "next-auth/providers/google"
 import { compare } from "bcrypt"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 
 import prismadb from "@/lib/prismadb"
-import type { User } from "@/types"
 
 export default NextAuth({
   providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID ?? "",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET ?? ""
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ""
+    }),
     Credentials({
       id: "credentials",
       name: "credentials",
@@ -24,7 +34,7 @@ export default NextAuth({
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Email and Password required")
         }
-        const user: User = await prismadb.user.findUnique({
+        const user = await prismadb.user.findUnique({
           where: {
             email: credentials.email
           }
@@ -44,6 +54,7 @@ export default NextAuth({
     signIn: "/auth/signin"
   },
   debug: process.env.NODE_ENV === "development",
+  adapter: PrismaAdapter(prismadb),
   session: {
     strategy: "jwt"
   },

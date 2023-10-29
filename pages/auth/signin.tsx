@@ -4,18 +4,16 @@ import type { ChangeEvent } from "react"
 
 import { Auth, Input } from "@/components"
 import { useUserRegister } from "@/hooks/use-user-register"
-import { AuthButtons, type AuthButtonsProps } from "@/components/auth/buttons"
+import { AuthButtons, type AuthButtonsProps } from "@/components/auth/AuthButtons"
 
 const SignIn = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const signin = useUserRegister({ email, password, url: "/" })
-
   const credentials: AuthButtonsProps = {
     main: {
       text: "Sign in",
-      handleClick: signin
+      handleClick: useUserRegister({ credential: "credentials", email, password, callbackUrl: "/" })
     },
     google: {
       text: "Sign in with Google",
@@ -23,7 +21,7 @@ const SignIn = () => {
     },
     github: {
       text: "Sign in with Github",
-      handleClick: () => {}
+      handleClick: useUserRegister({ credential: "github", callbackUrl: "/" })
     }
   }
 

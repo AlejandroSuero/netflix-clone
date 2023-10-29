@@ -9,7 +9,7 @@ interface UserDB {
   updatedAt: Date
   favoritesIds: string[]
 }
-export type User = UserDB | null
+export type User = UserDB
 
 export type Color = "red" | "blue" | "indigo" | "white" | "black" | "gray"
 export type Variant = "filled" | "outlined"

@@ -29,7 +29,7 @@ const Button: FC<ButtonProps> = ({
 
   return (
     <button
-      className={`${className} py-3`}
+      className={className}
       onClick={handleClick}
       type={type}
     >

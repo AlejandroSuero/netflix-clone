@@ -1,15 +1,8 @@
 import type { Color } from "@/types"
 
-interface IColorOptions {
-  red: string
-  indigo: string
-  blue: string
-  gray: string
-  white: string
-  black: string
-}
+type ColorOptions = Record<Color, string>
 
-const bgFilledColorClass: IColorOptions = {
+const bgFilledColorClass: ColorOptions = {
   red: "bg-red-700 hover:bg-red-800 focus:bg-red-800",
   indigo: "bg-indigo-700 hover:bg-indigo-800 focus:bg-indigo-800",
   blue: "bg-blue-700 hover:bg-blue-800 focus:bg-blue-800",
@@ -17,7 +10,7 @@ const bgFilledColorClass: IColorOptions = {
   white: "bg-white hover:bg-opacity-90 focus:bg-opacity-80",
   black: "bg-black hover:bg-black/90 focus:bg-black/90"
 }
-const bgOutlinedColorClass: IColorOptions = {
+const bgOutlinedColorClass: ColorOptions = {
   red: "border-red-700 hover:bg-red-700 focus:bg-red-700",
   indigo: "border-indigo-700 hover:bg-indigo-700 focus:bg-indigo-700",
   blue: "border-blue-700 hover:bg-blue-700 focus:bg-blue-700",
@@ -25,7 +18,7 @@ const bgOutlinedColorClass: IColorOptions = {
   white: "border-white hover:border-opacity-80 focus:border-opacity-80",
   black: "border-black hover:border-opacity-80 focus:border-opacity-80"
 }
-const textFilledColorClass: IColorOptions = {
+const textFilledColorClass: ColorOptions = {
   red: "text-red-700 hover:text-white focus:text-white",
   indigo: "text-indigo-700 hover:text-white focus:text-white",
   blue: "text-blue-700 hover:text-white focus:text-white",
@@ -33,7 +26,7 @@ const textFilledColorClass: IColorOptions = {
   white: "text-white",
   black: "text-black"
 }
-const textOutlinedColorClass: IColorOptions = {
+const textOutlinedColorClass: ColorOptions = {
   red: "text-red-700 hover:text-white focus:text-white",
   indigo: "text-indigo-700 hover:text-white focus:text-white",
   blue: "text-blue-700 hover:text-white focus:text-white",
