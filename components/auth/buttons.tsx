@@ -2,6 +2,7 @@ import { FaGithub } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
 
 import type { FC, MouseEventHandler, ReactNode } from "react"
+import { Button } from ".."
 
 interface AuthCredentials {
   text: ReactNode
@@ -17,31 +18,39 @@ export interface AuthButtonsProps {
 const AuthButtons: FC<AuthButtonsProps> = ({ main, google, github }) => {
   return (
     <>
-      <button
-        onClick={main.handleClick}
-        className="bg-red-700 py-3 text-white font-bold tracking-wide rounded-md w-full mt-10 hover:bg-red-800 transition focus:outline-none focus:bg-red-800"
-      >
-        {main.text}
-      </button>
+      <Button
+        variant="filled"
+        text="Sign in"
+        foreground="white"
+        background="red"
+        customStyles="font-bold tracking-wide rounded-md w-full mt-10 transition focus:outline-none"
+        handleClick={main.handleClick}
+      />
       <div className="flex items-center justify-around gap-2 text-white opacity-50 my-2">
         <div className="w-full border-t border-white"></div>
         <p>or</p>
         <div className="w-full border-t border-white"></div>
       </div>
-      <button
-        onClick={google.handleClick}
-        className="flex justify-center gap-3 items-center border border-transparent bg-gray-100 py-3 text-white font-bold tracking-wide rounded-md w-full hover:bg-gray-300 transition focus:outline-none focus:bg-gray-300"
+      <Button
+        variant="filled"
+        foreground="black"
+        background="white"
+        customStyles="flex justify-center items-center gap-3 border border-transparent font-bold tracking-wide rounded-md w-full focus:outline-none"
+        handleClick={google.handleClick}
       >
         <FcGoogle />
-        <span className="text-black opacity-70">{google.text}</span>
-      </button>
-      <button
-        onClick={github.handleClick}
-        className="flex justify-center gap-3 items-center border border-white border-opacity-20 bg-black py-3 text-white font-bold tracking-wide rounded-md w-full mt-3 hover:opacity-80 transition focus:outline-none focus:opacity-80"
+        <span>{google.text}</span>
+      </Button>
+      <Button
+        variant="filled"
+        foreground="white"
+        background="black"
+        customStyles="flex justify-center items-center gap-3 border border-white mt-3 border-opacity-20 font-bold tracking-wide rounded-md w-full focus:outline-none"
+        handleClick={github.handleClick}
       >
         <FaGithub />
         <span>{github.text}</span>
-      </button>
+      </Button>
     </>
   )
 }
