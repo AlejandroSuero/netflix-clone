@@ -13,15 +13,15 @@ const SignIn = () => {
   const credentials: AuthButtonsProps = {
     main: {
       text: "Sign in",
-      handleClick: useUserRegister({ credential: "credentials", email, password, callbackUrl: "/" })
+      handleClick: useUserRegister({ credential: "credentials", email, password, callbackUrl: "/profiles" })
     },
     google: {
       text: "Sign in with Google",
-      handleClick: () => {}
+      handleClick: useUserRegister({ credential: "google", callbackUrl: "/profiles" })
     },
     github: {
       text: "Sign in with Github",
-      handleClick: useUserRegister({ credential: "github", callbackUrl: "/" })
+      handleClick: useUserRegister({ credential: "github", callbackUrl: "/profiles" })
     }
   }
 

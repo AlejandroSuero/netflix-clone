@@ -1,10 +1,11 @@
 import axios from "axios"
 import { signIn, type SignInOptions } from "next-auth/react"
-import { useRouter } from "next/router"
 import { useCallback } from "react"
 
+type Credential = "credentials" | "github" | "google"
+
 interface UseUserRegister {
-  credential?: "credentials" | "github"
+  credential?: Credential
   username?: string
   email?: string
   password?: string
@@ -18,15 +19,17 @@ const useUserRegister = ({
   password,
   callbackUrl
 }: UseUserRegister) => {
-  const router = useRouter()
   let options: SignInOptions
 
   switch (credential) {
     case "github":
       options = { callbackUrl }
       break
+    case "google":
+      options = { callbackUrl }
+      break
     case "credentials":
-      options = { email, password, redirect: false, callbackUrl }
+      options = { email, password, callbackUrl }
       break
     default:
       options = { username, email, password }
@@ -36,20 +39,19 @@ const useUserRegister = ({
   const signin = useCallback(async () => {
     try {
       await signIn(credential, options)
-      if (credential === "credentials") await router.push(callbackUrl)
     } catch (error) {
       if (process.env.NODE_ENV === "development") console.error(error)
     }
-  }, [callbackUrl, credential, options, router])
+  }, [credential, options])
 
   const signup = useCallback(async () => {
     try {
       await axios.post("/api/register", options)
-      await router.push(callbackUrl)
+      await signin()
     } catch (error) {
       if (process.env.NODE_ENV === "development") console.error(error)
     }
-  }, [options, router, callbackUrl])
+  }, [options, signin])
 
   if (!credential) return signup
   return signin

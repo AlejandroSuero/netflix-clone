@@ -1,7 +1,7 @@
 import type { FC, HTMLProps, MouseEventHandler, ReactNode } from "react"
 
 import type { Color, Variant } from "@/types"
-import { buttonVariant } from "@/lib/constants"
+import { buttonVariant } from "@/libs/constants"
 
 interface ButtonProps extends HTMLProps<HTMLButtonElement> {
   handleClick: MouseEventHandler<HTMLButtonElement>

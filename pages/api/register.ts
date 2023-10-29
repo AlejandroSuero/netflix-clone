@@ -1,8 +1,7 @@
 import bcrypt from "bcrypt"
 import type { NextApiRequest, NextApiResponse } from "next"
 
-import prismadb from "@/lib/prismadb"
-import type { User } from "@/types"
+import prismadb from "@/libs/prismadb"
 
 export default async function handler (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -10,7 +9,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
   }
   try {
     const { username, email, password } = req.body
-    const existingUser: User = await prismadb.user.findUnique({
+    const existingUser = await prismadb.user.findUnique({
       where: {
         email
       }
@@ -20,7 +19,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
       return
     }
     const hashedPassword = await bcrypt.hash(password, 12)
-    const user: User = await prismadb.user.create({
+    const user = await prismadb.user.create({
       data: {
         name: username,
         email,
