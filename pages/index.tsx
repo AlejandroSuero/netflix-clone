@@ -1,6 +1,8 @@
+import { Navbar } from "@/components"
 import useCurrentUser from "@/hooks/useCurrentUser"
 import type { NextPageContext } from "next"
 import { getSession, signOut } from "next-auth/react"
+import Head from "next/head"
 
 export async function getServerSideProps (context: NextPageContext) {
   const session = await getSession(context)
@@ -21,12 +23,14 @@ export default function Home () {
   const { data: user } = useCurrentUser()
   return (
     <>
-      <h1 className="text-2xl font-bold text-red-600">Netflix Clone</h1>
-      <p className="text-white">Logged in as: <span className="px-2 py-1 bg-red-700">{user?.name}</span></p>
-      <button
-        className="bg-white text-base h-10 w-full"
-        onClick={async () => { await signOut() }}
-      >Logout!</button>
+      <Head>
+        <title>Netflix clone - Home</title>
+        <meta property="title" content="Netflix clone - Home" key="title" />
+        <meta property="description" content="Welcome to aome's Netflix clone where you can watch movies from BlenderStudios and many more, only non-copyrighted movies available" key="description" />
+      </Head>
+      <>
+        <Navbar />
+      </>
     </>
   )
 }
