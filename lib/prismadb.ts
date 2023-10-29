@@ -4,11 +4,13 @@ const prismaClientSingleton = () => {
   return new PrismaClient()
 }
 
-type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>
+type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton> | undefined
 
-const globalForPrisma = globalThis as unknown as {
-  prismadb: PrismaClientSingleton | undefined
+interface GlobalPrisma {
+  prismadb: PrismaClientSingleton
 }
+
+const globalForPrisma = globalThis as unknown as GlobalPrisma
 
 const client = globalForPrisma.prismadb ?? prismaClientSingleton()
 
