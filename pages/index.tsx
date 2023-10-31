@@ -1,5 +1,4 @@
 import { Navbar } from "@/components"
-import useCurrentUser from "@/hooks/useCurrentUser"
 import type { NextPageContext } from "next"
 import { getSession, signOut } from "next-auth/react"
 import Head from "next/head"
@@ -20,7 +19,6 @@ export async function getServerSideProps (context: NextPageContext) {
 }
 
 export default function Home () {
-  const { data: user } = useCurrentUser()
   return (
     <>
       <Head>
@@ -30,6 +28,12 @@ export default function Home () {
       </Head>
       <>
         <Navbar />
+        <button
+          className="w-full h-10 bg-white"
+          onClick={async () => { await signOut() }}
+        >
+          Logout
+        </button>
       </>
     </>
   )

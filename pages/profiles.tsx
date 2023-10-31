@@ -28,7 +28,7 @@ const Profiles = () => {
       <Head>
         <title>Netflix clone - Profiles</title>
         <meta property="og:title" content="Netflix clone - Profiles" key="title" />
-        <meta property="og:description" content="Here is where you can manage your profiles" key="profiles" />
+        <meta property="og:description" content="Here is where you can manage your profiles" key="description" />
         <meta property="og:image" content="/images/hero.jpg" key="image" />
       </Head>
       <div className="flex items-center h-full justify-center">
@@ -39,8 +39,11 @@ const Profiles = () => {
           <div className="flex items-center justify-center gap-8 mt-10">
             <div onClick={async () => { await router.push("/") }}>
               <picture className="group flex-row w-44 mx-auto">
-                <div className="rounded-md aspect-square flex items-center justify-center border-2 border-transparent group-hover:cursor-pointer group-hover:border-white/50 group-hover:shadow-xl group-hover:shadow-white/10 overflow-hidden">
+                <div
+                  className="aspect-square flex items-center justify-center"
+                >
                   <Image
+                    className="rounded-md border-2 border-transparent group-hover:cursor-pointer group-hover:border-white/50 group-hover:shadow-xl group-hover:shadow-white/10"
                     src="/images/profiles/shinji.jpg"
                     alt="Shinji Ikari from Evangelion, performing one of his most famous poses, sit on a chair and think"
                     width={200}
